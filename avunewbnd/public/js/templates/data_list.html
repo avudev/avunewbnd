@@ -92,6 +92,11 @@
             <tr class="data-table-row">
             <td class="data-table-cell noselect">
               <div class="content ellipsis" style="width: 120px;">
+               No.
+              </div>
+              </td>
+            <td class="data-table-cell noselect">
+              <div class="content ellipsis" style="width: 120px;">
                 Employee id
               </div>
               </td>
@@ -119,9 +124,15 @@
                     
             <tbody tabindex="0" style="counter-increment: clusterize-counter -1;">
            
-{% for (var i=0,l=data_list["emp"].length; i<l; i++) { %}
+{% for (var i=0,l=data_list["emp"].length; i<l; i++) { %}            
 
           <tr class="data-table-row">
+        <td class="data-table-cell noselect" style="background-color: rgb(245, 247, 250);" >
+          <div class="content ellipsis" style="width: 120px;"  >
+         {{ i+1 }}
+          </div>
+          </td> 
+
           <td class="empid data-table-cell noselect" style="background-color: rgb(245, 247, 250);" >
           <div class="content ellipsis" style="width: 120px;"  >
          {{  data_list["emp"][i]["name"] }}
@@ -224,7 +235,8 @@ var notmatchData =$.grep( _org_data.emp, function(element, index) {
   });
   console.log(notmatchData);
   $.each(notmatchData,function(Idx,Item){
-   not_matching_row.push($(".emp[data-emp="+Item.employee_name+"]").parents("tr"));
+var t="\'";
+    not_matching_row.push($(".emp[data-emp="+t+Item.employee_name+t+"]").parents("tr"));
    
 });
   $.each(not_matching_row,function(Idx,Item){
