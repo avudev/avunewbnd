@@ -1,6 +1,3 @@
-
-
-
 <div class="page-form flex">
 <div>Schedule For :</div>
 &nbsp;&nbsp;&nbsp;
@@ -191,18 +188,9 @@
 
 
 <script>  
-
-
-
-
-
-
-
-
 var employee="";
 var store="";
 var shift="";
-
  $(document).ready(function(){
   var _org_data ;
 frappe.call({
@@ -214,8 +202,6 @@ frappe.call({
         console.log("originaldata>",_org_data);
             }
         });
-
-
 $(".filterdate").change(function(e){
       
          
@@ -228,20 +214,14 @@ $(".filterdate").change(function(e){
           
       }   
       
-
     });
-
 $("#filter-store").change(function(e){
-	var store_filter=$("#filter-store").val();
-	var not_matching_row=[];
-
-
-
+  var store_filter=$("#filter-store").val();
+  var not_matching_row=[];
 var notmatchData =$.grep( _org_data.emp, function(element, index) {
   return element.store!=store_filter;
   
   });
-
   console.log(notmatchData);
   $.each(notmatchData,function(Idx,Item){
    not_matching_row.push($(".emp[data-emp="+Item.employee_name+"]").parents("tr"));
@@ -253,9 +233,7 @@ $(Item.hide());
   if (store_filter==""){
 $(".emp").parents("tr").show();
 }
-
 });
-
 var newfdate,newtdate;
 $(".newdate").change(function(e){
       
@@ -266,9 +244,7 @@ $(".newdate").change(function(e){
          newtdate=$("#todate").val();
       
     });
-
 $("#BtnSubmit").click(function (){
-
  var sdate=$("#from").val();
  if(sdate==""){
   frappe.msgprint({
@@ -282,40 +258,23 @@ call_python_function(newfdate,newtdate,sdate);
 console.log("calling python function and seting values.;");
 }
 });
-
-
-
 });
-
-
 function call_python_function(_datefrom, _dateto,_datestart)
 {
-
  frappe.call({
             method:"avunewbnd.avunewbnd.doctype.shift_schedule_manual.shift_schedule_manual.load_existing_data",
             args: {
            "from_date": new Date(_datefrom),
            "to_date": new Date(_dateto),
            "start_date": new Date(_datestart),
-
             },
             callback: function(r){
         console.log("try>",r);
         _SetData(r.message);
             }
-
         });
-
   
 }
-
-
-
-
-
-
-
-
  function generatetable(_datefrom, _dateto)
  {
     var _from = moment(_datefrom);
@@ -341,22 +300,14 @@ function call_python_function(_datefrom, _dateto,_datestart)
     $("#maintable thead tr td div").addClass("content ellipsis");
     $("#maintables tbody tr td div").addClass("content ellipsis");
     $("#maintables tbody tr td div select").addClass("input-with-feedback form-control input-sm");
-
-
  call_python_function(_datefrom, _dateto,_datefrom);
  }
-
-
  function _GetData()
  {
-
     var _data = [];
-
     $.each($(".shift"),function(Idx,Item){
       
-
       var _emp, _store, _shift, _day, _row;
-
       _shift = $(Item).val();
       _day = $(Item).data("day");
       _row = $(Item).parents("tr");
@@ -364,13 +315,10 @@ function call_python_function(_datefrom, _dateto,_datestart)
       _empid = $(".empid",_row).text().trim();
       _company = $(".company",_row).text().trim();
       _store = $(".store",_row).val();
-
  if(_shift!=0 && _store!=0) {
-
       _data.push({"Shift":_shift,"Day":moment(_day).format("YYYY-MM-DD"),"Employee":_emp,"Store":_store,"Empid":_empid,"Company":_company});
     }
     });
-
     console.log("Sent Data>",_data);
     
  frappe.call({
@@ -381,18 +329,16 @@ function call_python_function(_datefrom, _dateto,_datestart)
             callback: function(r){
         console.log(r); 
             }
-
         });
 }
-
-
-
 function _SetData(_data)  {
-   $.each(_data,function(Idx,Item){
+  $.each(_data,function(Idx,Item){
 
 
- 
-    var rowww = $(".emp[data-emp="+Item.employee_name+"]").parents("tr");
+var t="\'";
+    var rowww = $(".emp[data-emp="+t+Item.employee_name+t+"]").parents("tr");
+    console.log("Quote>",rowww);
+
     $(".store",rowww).val(Item.store);
     
     $(".shift[data-day="+Item.attendance_date+"]",rowww).val(Item.shift_time);
@@ -401,8 +347,6 @@ function _SetData(_data)  {
     
    });
 }
-
-
 </script>
 
 
@@ -421,5 +365,4 @@ function _SetData(_data)  {
   .ellipsis{
     width:unset;
   }
-
 </style>

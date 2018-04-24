@@ -17,6 +17,17 @@ def load_data():
     employee = frappe.db.sql("SELECT name,store,employee_name,company FROM `tabEmployee` ;", as_dict=1)
     storelist = frappe.db.sql("SELECT name FROM `tabStore` ;", as_list=1)
     shiftlist = frappe.db.sql("SELECT shift_name FROM `tabShift Time` ;", as_list=1)
+    employeenamedata=frappe.db.sql("SELECT employee_name FROM `tabEmployee` ;", as_list=1)
+    namewithspace=[]
+    for i in range(0,len(employeenamedata)):
+        a=' ' in str(employeenamedata[i])
+        frappe.msgprint(employeenamedata[i])
+        frappe.msgprint(str(a))
+        w=str(employeenamedata[i]).replace(" ","");
+        frappe.msgprint(str(w))
+        
+
+
     # frappe.throw(lastweekdetails)
     # if lastweekdetails:
     #     for i in range(0,len(lastweekdetails)):
