@@ -87,9 +87,6 @@
   <thead>
     <tr>
       <th><div class="content ellipsis" style="width: 100px; text-align: center;margin: auto;">
-               No.
-              </div></th>
-      <th><div class="content ellipsis" style="width: 100px; text-align: center;margin: auto;">
                 Employee id
               </div></th>
              
@@ -108,7 +105,7 @@
   <tbody>
   {% for (var i=0,l=data_list["emp"].length; i<l; i++) { %}   
     <tr>
-      <td><div>{{ i+1 }}</div></td>
+      
       <td class="empid" data-empid="{{  data_list["emp"][i]["name"] }}" ><div >{{  data_list["emp"][i]["name"] }}</div></td>
       <td class="emp" data-emp="{{  data_list["emp"][i]["employee_name"] }}" ><div >{{  data_list["emp"][i]["employee_name"] }}</div></td>
       <td class="company"> <div class="content ellipsis" " >
