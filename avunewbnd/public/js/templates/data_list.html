@@ -40,7 +40,15 @@
 <div class="form-group frappe-control input-max-width col-md-2 has-error" title="" style="z-index: 1;">
 <div class="link-field ui-front" style="position: relative; line-height: 1;">     
 <div class="awesomplete"> 
-<input type="text" id="filter-store" name="employee-filter" class="input-with-feedback form-control bold input-sm" placeholder="Store Name" >
+
+<select type="text" id="filter-store" name="employee-filter" autocomplete="off" class="store input-with-feedback form-control input-sm " data-store=" {{  data_list[\"store\"][i]  }} ">
+<option selected value="0">Select Store</option>
+
+       {% for (var t=0, z=data_list["store"].length; t<z; t++) { %}
+<option>{{  data_list["store"][t][0] }}</option>
+         {% } %}
+
+</select>
 </div>          
 </div></div>
 
@@ -183,7 +191,7 @@ var notmatchData =$.grep( _org_data.emp, function(element, index) {
   $.each(not_matching_row,function(Idx,Item){
 $(Item.hide());
   });
-  if (store_filter==""){
+  if (store_filter=="0"){
 $(".emp").parents("tr").show();
 }
 });
