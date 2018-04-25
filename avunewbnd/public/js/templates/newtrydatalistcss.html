@@ -86,20 +86,20 @@
 <table class="table table-bordered" id="maintable">
   <thead>
     <tr>
-      <th><div class="content ellipsis" style="width: 100px; text-align: center;margin: auto;">
+      <th><div class="content ellipsis" style="width: 120px;">
                No.
               </div></th>
-      <th><div class="content ellipsis" style="width: 100px; text-align: center;margin: auto;">
+      <th><div class="content ellipsis" style="width: 120px;">
                 Employee id
               </div></th>
              
-              <th><div class="content ellipsis" style="width: 100px;text-align: center;margin: auto;">
+              <th><div class="content ellipsis" style="width: 120px;">
                  Employee
               </div></th>
-              <th><div class="content ellipsis" style="width: 100px;text-align: center;margin: auto;">
+              <th><div class="content ellipsis" style="width: 120px;">
                Company
               </div></th>
-              <th><div class="content ellipsis" style="width: 100px;text-align: center;margin: auto;">
+              <th><div class="content ellipsis" style="width: 120px;">
                 Store
               </div></th>
     </tr>
@@ -109,12 +109,12 @@
   {% for (var i=0,l=data_list["emp"].length; i<l; i++) { %}   
     <tr>
       <td><div>{{ i+1 }}</div></td>
-      <td class="empid" data-empid="{{  data_list["emp"][i]["name"] }}" ><div >{{  data_list["emp"][i]["name"] }}</div></td>
-      <td class="emp" data-emp="{{  data_list["emp"][i]["employee_name"] }}" ><div >{{  data_list["emp"][i]["employee_name"] }}</div></td>
-      <td class="company"> <div class="content ellipsis" " >
+      <td class="empid" ><div data-emp="{{  data_list["emp"][i]["name"] }}">{{  data_list["emp"][i]["name"] }}</div></td>
+      <td class="emp"><div data-emp="{{  data_list["emp"][i]["employee_name"] }}">{{  data_list["emp"][i]["employee_name"] }}</div></td>
+      <td class="company"> <div class="content ellipsis" style="width: 120px;" >
          {{  data_list["emp"][i]["company"] }}
           </div></td>
-          <td style="padding-top: 20px;"> <select type="text" autocomplete="off" class="store " data-store=" {{  data_list[\"store\"][i]  }} ">
+          <td> <select type="text" autocomplete="off" class="store" data-store=" {{  data_list[\"store\"][i]  }} ">
 <option selected value="0">Select Store</option>
 
        {% for (var t=0, z=data_list["store"].length; t<z; t++) { %}
@@ -131,6 +131,110 @@
 
 
 
+<div class="report-wrapper" style="display: block;">
+            <style></style>
+            <div class="data-table datatable-instance-1">
+                <table class="data-table-header" style="margin: 0px;">
+                <thead>
+            <tr class="data-table-row">
+            <td class="data-table-cell noselect">
+              <div class="content ellipsis" style="width: 120px;">
+               No.
+              </div>
+              </td>
+            <td class="data-table-cell noselect">
+              <div class="content ellipsis" style="width: 120px;">
+                Employee id
+              </div>
+              </td>
+              <td class="data-table-cell noselect">
+              <div class="content ellipsis" style="width: 120px;">
+                Employee
+              </div>
+              </td>
+              <td class="data-table-cell noselect">
+              <div class="content ellipsis" style="width: 120px;">
+                Company
+              </div>
+              </td>
+              <td class="data-table-cell noselect">
+              <div class="content ellipsis" style="width: 120px;">
+                Store
+              </div>
+              </td>
+            </tr>
+                </thead>
+                </table>
+        <div class="body-scrollable" style="width: 1837px; margin-top: 34px;">
+
+          <table id="maintables" class="data-table-body" style="margin: 0px;">
+                    
+            <tbody tabindex="0" style="counter-increment: clusterize-counter -1;">
+           
+{% for (var i=0,l=data_list["emp"].length; i<l; i++) { %}            
+
+          <tr class="data-table-row">
+        <td class="data-table-cell noselect" style="background-color: rgb(245, 247, 250);" >
+          <div class="content ellipsis" style="width: 120px;"  >
+         {{ i+1 }}
+          </div>
+          </td> 
+
+          <td class=" data-table-cell noselect" style="background-color: rgb(245, 247, 250);" >
+          <div class="content ellipsis" style="width: 120px;"  >
+         {{  data_list["emp"][i]["name"] }}
+          </div>
+          </td>
+
+
+          <td class="data-table-cell noselect" style="background-color: rgb(245, 247, 250);" data-emp="{{  data_list["emp"][i]["employee_name"] }}"  >
+          <div class="content ellipsis" style="width: 120px;">
+         {{  data_list["emp"][i]["employee_name"] }}
+          </div>
+          </td>
+
+          <td class="company data-table-cell noselect" style="background-color: rgb(245, 247, 250);" >
+          <div class="content ellipsis" style="width: 120px;" >
+         {{  data_list["emp"][i]["company"] }}
+          </div>
+          </td>
+
+
+
+
+
+            <td style="width:120px;">
+       
+
+        <select type="text" autocomplete="off" class="store" data-store=" {{  data_list[\"store\"][i]  }} ">
+<option selected value="0">Select Store</option>
+
+       {% for (var t=0, z=data_list["store"].length; t<z; t++) { %}
+<option>{{  data_list["store"][t][0] }}</option>
+         {% } %}
+
+</select>
+          
+
+          </td>
+
+    
+    
+
+         
+          </tr>
+                  
+ {% } %}
+   
+
+          </tbody>
+        </table>
+
+        </div>
+        </div>
+        </div>
+        
+        
 
 
 
@@ -241,14 +345,14 @@ function call_python_function(_datefrom, _dateto,_datestart)
     
     $("#maintable th.dynamic-th,#maintable td.dynamic-td").remove();
     while(_from <= _to)
-    { var div="<div style="+q+"margin:auto;width:120px;"+q+">";
+    { var div="<div style="+q+"width:120px;"+q+">";
         
       $("#maintable thead tr").append("<th class=dynamic-th>"+div + _from.format("DD-MM-YYYY") +"</div></th>");
       columns.push(_from.format("YYYY-MM-DD"));
       _from.add(1,"days");
     }
  
-   var classname ="shift form-control";
+   var classname ="shift";
     for(var i=0;i<columns.length;i++)
     {  
        
@@ -325,21 +429,16 @@ function _SetData(_data)  {
 <style type="text/css">
   td{
     background-color: rgb(245, 247, 250);
-    
-    text-align: center;
-  }
-  th{
+    width: 120px;
     text-align: center;
   }
   .ellipsis{
-    width:120px;
+    width: 120px;
   }
-  
   .form-page{
     background-color: rgb(245, 247, 250);
   }
   .ellipsis{
     width:unset;
   }
-  
 </style>
