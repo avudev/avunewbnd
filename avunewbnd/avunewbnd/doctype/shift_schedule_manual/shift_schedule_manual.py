@@ -18,11 +18,7 @@ class ShiftScheduleManual(Document):
 
 
 
-@frappe.whitelist()
-def passing_filterdata_to_python(data):
-	frappe.msgprint(data)
-	employee = frappe.db.sql("SELECT employee_name FROM `tabEmployee` where employee_name='%s';",(data), as_dict=1)
-	return employee
+
 
 
 
@@ -33,11 +29,11 @@ def passing_templatedata_to_python(data):
 	#frappe.msgprint("function is working")
 	d=ast.literal_eval(data)
 	action=""
+	doc=""
 	#frappe.msgprint(str(d))
 	
 	
 	for i in range(0,len(d)):
-	#date= frappe.utils.data.formatdate (d[i]["Day"], "yyyy-MM-dd")
 		doc = frappe.get_doc({
 
   "doctype": "Shift Schedule",
@@ -50,6 +46,7 @@ def passing_templatedata_to_python(data):
      "naming_series" : "SHT-"
      
 	})
+
 		existing_data=frappe.get_all("Shift Schedule",fields=["name","attendance_date","employee_name","shift_time"],filters= {"attendance_date": d[i]["Day"],"employee_name":d[i]["Employee"]})
 		if len(existing_data)!=0:
 			store= d[i]["Store"]

@@ -156,7 +156,7 @@
 
 
 
-            <td>
+            <td style="width:120px;">
        
 
         <select type="text" autocomplete="off" class="store" data-store=" {{  data_list[\"store\"][i]  }} ">
@@ -202,6 +202,9 @@
 var employee="";
 var store="";
 var shift="";
+var columns = [];
+var q="\'";
+
  $(document).ready(function(){
   var _org_data ;
 frappe.call({
@@ -235,8 +238,8 @@ var notmatchData =$.grep( _org_data.emp, function(element, index) {
   });
   console.log(notmatchData);
   $.each(notmatchData,function(Idx,Item){
-var t="\'";
-    not_matching_row.push($(".emp[data-emp="+t+Item.employee_name+t+"]").parents("tr"));
+
+    not_matching_row.push($(".emp[data-emp="+q+Item.employee_name+q+"]").parents("tr"));
    
 });
   $.each(not_matching_row,function(Idx,Item){
@@ -281,7 +284,7 @@ function call_python_function(_datefrom, _dateto,_datestart)
            "start_date": new Date(_datestart),
             },
             callback: function(r){
-        console.log("try>",r);
+        console.log("loadexistingdata>",r);
         _SetData(r.message);
             }
         });
@@ -292,28 +295,66 @@ function call_python_function(_datefrom, _dateto,_datestart)
     var _from = moment(_datefrom);
     var _to = moment(_dateto);
     console.log(_from);
-    var columns = [];
+    columns = [];
+    
     
     $("#maintables td.dynamic-td,#maintable td.dynamic-td").remove();
     while(_from <= _to)
-    { 
-      $("#maintable thead tr").append("<td class=dynamic-td><div>" + _from.format("DD-MM-YYYY") +"</div></td>");
+    { var div="<div style="+q+"width:120px;"+q+">";
+        
+      $("#maintable thead tr").append("<td class=dynamic-td>"+div + _from.format("DD-MM-YYYY") +"</div></td>");
       columns.push(_from.format("YYYY-MM-DD"));
       _from.add(1,"days");
     }
  
    var classname ="shift";
     for(var i=0;i<columns.length;i++)
-    { 
-      
-      $("#maintables tbody tr").append("<td class=dynamic-td ><div><select class=\"+classname+\" data-day=\"+columns[i]+\" ><option selected value=0> Select Shift</option>{% for (var t=0, l=data_list[\"shift\"].length; t<l; t++) { %}<option value=\'{{  data_list[\"shift\"][t][0] }}\'>{{  data_list[\"shift\"][t][0] }}</option>{% } %}</select></div></td>");
+    {  
+
+       
+      $("#maintables tbody tr").append("<td class=dynamic-td >"+div+"<select class=\"+classname+\" data-day=\"+columns[i]+\" ><option selected value=0> Select Shift</option>{% for (var t=0, l=data_list[\"shift\"].length; t<l; t++) { %}<option value=\'{{  data_list[\"shift\"][t][0] }}\'>{{  data_list[\"shift\"][t][0] }}</option>{% } %}</select></div></td>");
     }
     $("td").addClass("data-table-cell noselect");
     $("#maintable thead tr td div").addClass("content ellipsis");
     $("#maintables tbody tr td div").addClass("content ellipsis");
     $("#maintables tbody tr td div select").addClass("input-with-feedback form-control input-sm");
+
  call_python_function(_datefrom, _dateto,_datefrom);
+ setting_weekly_off(_datefrom, _dateto);
  }
+
+
+
+function setting_weekly_off(_datefrom, _dateto)
+
+{ 
+  var _from = moment(_datefrom);
+
+  var _to = moment(_dateto);
+  
+  console.log("from",_from);
+  
+  while(_from <= _to) 
+  {
+    if (_from.format("dddd")=="Friday")
+     {
+    console.log("weekoff>",_from.format("dddd"),_from);
+    var date=_from.format("YYYY-MM-DD");
+    console.log("formatedfrom",date);
+    $(".shift[data-day="+date+"]").val("Weekly Off");
+     }
+     _from.add(1,"days");
+  }
+
+
+}
+
+
+
+
+
+
+
  function _GetData()
  {
     var _data = [];
@@ -347,8 +388,7 @@ function _SetData(_data)  {
   $.each(_data,function(Idx,Item){
 
 
-var t="\'";
-    var rowww = $(".emp[data-emp="+t+Item.employee_name+t+"]").parents("tr");
+    var rowww = $(".emp[data-emp="+q+Item.employee_name+q+"]").parents("tr");
     console.log("Quote>",rowww);
 
     $(".store",rowww).val(Item.store);
