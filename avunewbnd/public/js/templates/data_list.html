@@ -80,7 +80,7 @@
 <div class="form-group frappe-control input-max-width col-md-2 has-error" title="" style="z-index: 1;">
 <div class="link-field ui-front" style="position: relative; line-height: 1;">     
 <div class="awesomplete"> 
-<button class="btn btn-primary btn-sm primary-action"  id="BtnSubmit" type="button" ><i class="visible-xs octicon octicon-check"></i><span class="hidden-xs">Fetch Previous Data</span></button>
+<button class="btn btn-primary btn-sm primary-action"  id="BtnSubmit" type="button" ><i class="visible-xs octicon octicon-check"></i><span class="hidden-xs">Get Previous Data</span></button>
 </div>          
 </div></div>
 
@@ -90,8 +90,8 @@
 
 
 
-<div style="height:500px;overflow:auto;">
-<table class="table table-bordered" id="maintable">
+<div>
+<table class="table table-bordered" id="maintable" style="width:auto;">
   <thead>
     <tr>
       <th><div class="content ellipsis" style="width: 100px; text-align: center;margin: auto;">
@@ -110,7 +110,7 @@
     </tr>
   </thead>
   
-  <tbody>
+  <tbody style="height:500px; width:100px;overflow:auto;" >
   {% for (var i=0,l=data_list["emp"].length; i<l; i++) { %}   
     <tr>
       
