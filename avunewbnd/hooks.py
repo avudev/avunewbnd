@@ -11,6 +11,7 @@ app_color = "grey"
 app_email = "admin@avu.net.in"
 app_license = "MIT"
 
+fixtures = ['Report']
 # Includes in <head>
 # ------------------
 

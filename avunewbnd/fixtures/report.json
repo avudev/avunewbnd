@@ -1,0 +1,33 @@
+[
+  {
+  "add_total_row": 0,
+  "apply_user_permissions": 1,
+  "color": "black",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "icon": "fa fa-print ",
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2018-04-26 16:16:14.816254",
+  "module": "avunewbnd",
+  "name": "Shift Schedule",
+  "query": null,
+  "ref_doctype": "Shift Schedule",
+  "report_name": "Shift Schedule",
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "role": "System Manager"
+   },
+   {
+    "role": "HR User"
+   },
+   {
+    "role": "HR Manager"
+   }
+  ]
+ }
+]
