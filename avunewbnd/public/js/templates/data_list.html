@@ -19,7 +19,7 @@
 <div class="form-group frappe-control input-max-width col-md-2 has-error" title="" style="z-index: 1;">
 <div class="link-field ui-front" style="position: relative; line-height: 1;">     
 <div class="awesomplete"> 
- <button class="btn btn-primary btn-sm primary-action" type="button" onclick="_GetData()"><i class="visible-xs octicon octicon-check"></i><span class="hidden-xs">Upload New Data</span></button>
+ <button id="myButton1" onclick="_GetData()" value="Upload New Data">Upload New Data</button>
 </div>          
 </div></div>
 
@@ -90,7 +90,7 @@
 
 
 
-<div>
+<div style="overflow:scroll">
 <table class="table table-bordered" id="maintable" style="width:auto;">
   <thead>
     <tr>
@@ -110,7 +110,7 @@
     </tr>
   </thead>
   
-  <tbody style="height:500px; width:100px;overflow:auto;" >
+  <tbody>
   {% for (var i=0,l=data_list["emp"].length; i<l; i++) { %}   
     <tr>
       
@@ -134,14 +134,10 @@
 </div>
 
 
+<!-- trial strats -->
 
 
-
-
-
-
-
-
+<!-- trial ends -->
 
           
 
@@ -152,7 +148,23 @@ var store="";
 var shift="";
 var columns = [];
 var q="\'";
+
+
+
+
+
+
+
  $(document).ready(function(){
+
+
+
+
+ 
+
+
+
+
   var _org_data ;
 frappe.call({
             method:"avunewbnd.api.data_list.load_data",
@@ -239,9 +251,22 @@ function call_python_function(_datefrom, _dateto,_datestart)
  function generatetable(_datefrom, _dateto)
  {
     var _from = moment(_datefrom);
+    var today =moment();
     var _to = moment(_dateto);
     console.log(_from);
     columns = [];
+    
+    if (_from<=today){
+      
+        frappe.msgprint({
+        title: __("You Can not Select Previous dates."),
+        message: __("You Can not upload shift schedule for Previous dates."),
+        indicator: "red"
+ });
+    }
+    else{
+
+
     
     
     $("#maintable th.dynamic-th,#maintable td.dynamic-td").remove();
@@ -265,7 +290,28 @@ function call_python_function(_datefrom, _dateto,_datestart)
     $("#maintable tbody tr td div select").addClass("input-with-feedback form-control input-sm");
  call_python_function(_datefrom, _dateto,_datefrom);
  setting_weekly_off(_datefrom, _dateto);
+}
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function setting_weekly_off(_datefrom, _dateto)
 { 
   var _from = moment(_datefrom);
@@ -286,7 +332,7 @@ function setting_weekly_off(_datefrom, _dateto)
   }
 }
  function _GetData()
- {
+ {   
     var _data = [];
     $.each($(".shift"),function(Idx,Item){
       
@@ -302,12 +348,14 @@ function setting_weekly_off(_datefrom, _dateto)
       _data.push({"Shift":_shift,"Day":moment(_day).format("YYYY-MM-DD"),"Employee":_emp,"Store":_store,"Empid":_empid,"Company":_company});
     }
     });
+    
     console.log("Sent Data>",_data);
     
  frappe.call({
             method:"avunewbnd.avunewbnd.doctype.shift_schedule_manual.shift_schedule_manual.passing_templatedata_to_python",
             args: {
            "data" : _data
+    
             },
             callback: function(r){
         console.log(r); 

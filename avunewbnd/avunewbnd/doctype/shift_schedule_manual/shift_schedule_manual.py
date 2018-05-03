@@ -25,7 +25,7 @@ class ShiftScheduleManual(Document):
 
 
 @frappe.whitelist()
-def passing_templatedata_to_python(data):
+def passing_templatedata_to_python(data,ButtonName):
 	#frappe.msgprint("function is working")
 	d=ast.literal_eval(data)
 	action=""
