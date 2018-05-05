@@ -136,7 +136,7 @@
 
 <!-- trial strats -->
 
-
+ 
 <!-- trial ends -->
 
           
@@ -156,13 +156,6 @@ var q="\'";
 
 
  $(document).ready(function(){
-
-
-
-
- 
-
-
 
 
   var _org_data ;
@@ -279,10 +272,15 @@ function call_python_function(_datefrom, _dateto,_datestart)
     }
  
    var classname ="shift form-control";
+   console.log("columnsvalue>",columns);
     for(var i=0;i<columns.length;i++)
     {  
        
-      $("#maintable tbody tr").append("<td class=dynamic-td >"+div+"<select class=\"+classname+\" data-day=\"+columns[i]+\" ><option selected value=0> Select Shift</option>{% for (var t=0, l=data_list[\"shift\"].length; t<l; t++) { %}<option value=\'{{  data_list[\"shift\"][t][0] }}\'>{{  data_list[\"shift\"][t][0] }}</option>{% } %}</select></div></td>");
+      
+
+      $("#maintable tbody tr").append("<td class=dynamic-td>"+div+"<select class=\"+classname+\" data-day=\"+columns[i]+\" ><option selected value=0> Select Shift</option>{% for (var t=0, l=data_list[\"shift\"].length; t<l; t++) { %}<option value=\'{{  data_list[\"shift\"][t][0] }}\'>{{  data_list[\"shift\"][t][0] }}</option>{% } %}</select></div></td>");
+
+
     }
     $("td").addClass("data-table-cell noselect");
     $("#maintable thead tr th div").addClass("content ellipsis");
